@@ -1,0 +1,21 @@
+{
+    "name": "krbv/minifyit",
+    "type": "library",
+    "keywords": ["laravel"],
+    "authors": [
+        {
+            "name": "Igor Korobov",
+            "email": "iakorobov@gmail.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require-dev": {
+        "oyejorge/less.php": "~1.5"
+    },    
+    "require": {},
+        "autoload": {
+        "psr-4": {
+            "Krbv\\Minifyit\\": "src/"
+        }
+    }
+}

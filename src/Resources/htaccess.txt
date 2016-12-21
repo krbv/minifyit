@@ -1,0 +1,42 @@
+<IfModule mime_module>
+<FilesMatch ".js.gz">
+AddEncoding x-gzip .gz
+AddEncoding x-gzip .js.gz
+ForceType application/x-javascript
+AddType application/x-javascript .js.gz
+</FilesMatch>
+<FilesMatch ".woff.gz">
+AddEncoding x-gzip .gz
+AddEncoding x-gzip .woff.gz
+ForceType application/x-font-woff
+AddType text/css .woff.gz
+</FilesMatch>
+<FilesMatch ".css.gz">
+AddEncoding x-gzip .gz
+AddEncoding x-gzip .css.gz
+ForceType text/css
+AddType text/css .css.gz
+</FilesMatch>
+</IfModule>
+RewriteEngine on
+RewriteCond %{HTTP:Accept-Encoding} gzip
+RewriteCond %{REQUEST_FILENAME}.gz -f
+RewriteRule (.*\.js) $1.gz [T=application/x-javascript,L]
+
+RewriteCond %{HTTP:Accept-Encoding} gzip
+RewriteCond %{REQUEST_FILENAME}.gz -f
+RewriteRule (.*\.css) $1.gz [T=text/css,L]
+
+RewriteCond %{HTTP:Accept-Encoding} gzip
+RewriteCond %{REQUEST_FILENAME}.gz -f
+RewriteRule (.*\.woff) $1.gz [T=text/woff,L]
+
+RewriteCond %{HTTP:Accept-Encoding} gzip
+RewriteCond %{REQUEST_FILENAME}.gz -f
+RewriteRule (.*\.woff2) $1.gz [T=text/woff2,L]
+
+AddType application/x-font-woff woff
+AddType application/x-font-woff2 .woff2
+
+Header set Expires "Thu, 15 Apr 2025 20:00:00 GMT"
+ErrorDocument 404 /
