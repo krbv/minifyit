@@ -4,12 +4,12 @@
 ## Install
 
 ``` bash
-composer require krbv/Minifyit
+composer require krbv/minifyit
 ```
 or
 ``` php
 "require": {
-    "krbv/Minifyit": "0.1.*"
+    "krbv/minifyit": "0.1.*"
 }
 ```
 
