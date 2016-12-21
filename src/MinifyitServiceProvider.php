@@ -26,8 +26,8 @@ class MinifyitServiceProvider extends ServiceProvider
         /* публикация настроек */
           $this->publishes([
             __DIR__.'/config/minifyit.php' => config_path('minifyit.php'),
-            __DIR__.'/Resources/templates/css.html' => resource_path('views/minifyit/css.html'),  
-            __DIR__.'/Resources/templates/js.html' => resource_path('views/minifyit/js.html'), 
+            __DIR__.'/Resources/templates/css.html' => resource_path('views/vendor/minifyit/css.html'),  
+            __DIR__.'/Resources/templates/js.html' => resource_path('views/vendor/minifyit/js.html'), 
           ]);
     }
 

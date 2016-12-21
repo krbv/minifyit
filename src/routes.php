@@ -15,5 +15,4 @@ Route::group(['namespace' => 'Krbv\Minifyit\Controllers'], function () {
             ]); 
    
    
-   
 });
