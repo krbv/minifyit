@@ -4,7 +4,7 @@ return [
 
         'css' => [
                 'active'          => true,
-                'save'            => true,
+                'save'            => false,
                 'less'            => true,
                 'gzip'            => true,
                 'CSScompressor'   => true,
@@ -21,7 +21,7 @@ return [
                 'active'          => true,
                 'save'            => true,
                 'gzip'            => true,
-                'JScompressor'    => true, //SLOW send code to http://closure-compiler.appspot.com/home
+                'JScompressor'    => false, //SLOW send code to http://closure-compiler.appspot.com/home
                 'delete_previous' => true,
                 'folder' => [
                     'cache'         => "/cache/js",
