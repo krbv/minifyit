@@ -30,6 +30,13 @@ return [
                 ]
          ],   
            
+          'pages' => [
+                'autosave'        => false,
+                'folder' => [
+                    'cache'         => "/cache/pages",
+                    'destination'    => public_path()."/cache/pages",
+                ]
+         ], 
     
          "font" =>[
              'active' => true,

@@ -19,6 +19,8 @@ use Less_Parser;
 class MinifyitClass
 {
 
+    public $saveView;
+    
     private $output;
     
     private $config;
@@ -30,9 +32,16 @@ class MinifyitClass
     private $js = [];
     
     private $templates;
-
+    
+    private $content;
+    
+    
     public function __construct($paths) {
         $this->templates = $paths;
+    }
+    
+    public function __destruct() {
+        $this->savePage();
     }
     
     private function addItem($items, &$holder){
@@ -54,6 +63,10 @@ class MinifyitClass
          if($add){array_push($holder, $add);}
              
 
+    }
+    
+    public function saveView($path){
+        $this->saveName = $path; 
     }
     
     public function setCSS($items){
@@ -110,26 +123,50 @@ class MinifyitClass
        if(empty($renderedContent)){return false;}
        
         //get current content of the page
-        $content = $response->getContent();
+        $this->content = $response->getContent();
         
         if(!empty($renderedContent['css'])){
-            $pos = strpos($content, '</head>');
+            $pos = strpos($this->content, '</head>');
             if($pos!==false){
-                $content = substr_replace($content, $renderedContent['css'], $pos, 0);
+                $this->content = substr_replace($this->content, $renderedContent['css'], $pos, 0);
             }
         }
         
         if(!empty($renderedContent['js'])){
-            $pos = strripos($content, '</body>');
+            $pos = strripos($this->content, '</body>');
             if($pos!==false){
-                $content = substr_replace($content, $renderedContent['js'], $pos, 0);
+                $this->content = substr_replace($this->content, $renderedContent['js'], $pos, 0);
             }
         }      
         
         // Update the new content and reset the content length
-        $response->setContent($content);
+        $response->setContent($this->content);
         $response->headers->remove('Content-Length');
-                    
+             
+    }
+    
+    
+    public function savePage(){
+        
+        $config = Config::get('minifyit.pages');
+        $path = $config['folder']['destination'];
+
+        if( empty($this->saveView) && $config['autosave'] !== true){
+            return false;
+        }
+
+        if(!is_bool($this->saveView) && !empty($this->saveView)){
+                $path .='/'.$this->saveView;
+        }elseif($this->saveView == true){
+                $path .='/'.md5( $_SERVER['REQUEST_URI'] );
+        }elseif($this->saveView === false){
+                return false;
+        }elseif($config['autosave'] === true){
+                $path .='/'.md5( $_SERVER['REQUEST_URI'] );
+        }
+            
+        File::put($path, $this->content);
+
     }
 
 

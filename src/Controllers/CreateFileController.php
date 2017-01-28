@@ -19,12 +19,14 @@ class CreateFileController extends Controller
     }
     
     public function css($generatedURL){
+        header('Status: 200');
         $code = $this->minifyit->getSource($generatedURL, 'css');
         return response($code, 200)
                   ->header('Content-Type', 'text/css');
     }
     
     public function js($generatedURL){
+        header('Status: 200');
          $code = $this->minifyit->getSource($generatedURL, 'js');
          return response($code, 200)
                   ->header('Content-Type', 'application/javascript');
